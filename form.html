@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Form</title>
+    <style>
+    
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <form id="surveyForm">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required><br><br>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required><br><br>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" required><br><br>
+
+        <label for="country">Country:</label>
+        <select id="country" name="country" required>
+            <option value="">Select Country</option>
+            <option value="India">India</option>
+            <option value="Canada">Canada</option>
+            <option value="UK">UK</option>
+            <!-- Add more options as needed -->
+        </select><br><br>
+
+        <label>Gender:</label>
+        <input type="checkbox" id="male" name="gender" value="Male"> <label for="male">Male</label>
+        <input type="checkbox" id="female" name="gender" value="Female"> <label for="female">Female</label>
+        <input type="checkbox" id="other" name="gender" value="Other"> <label for="other">Other</label><br><br>
+
+        <label for="profession">Profession:</label>
+        <input type="text" id="profession" name="profession" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="mobile">Mobile Number:</label>
+        <input type="tel" id="mobile" name="mobile" required><br><br>
+
+        <button type="button" id="submitBtn">Submit</button>
+        <button type="button" id="resetBtn">Reset</button>
+    </form>
+
+    <div id="popup" class="popup">
+        <h2>Survey Form Submission</h2>
+        <p><strong>First Name:</strong> <span id="popupFirstName"></span></p>
+        <p><strong>Last Name:</strong> <span id="popupLastName"></span></p>
+        <p><strong>Date of Birth:</strong> <span id="popupDob"></span></p>
+        <p><strong>Country:</strong> <span id="popupCountry"></span></p>
+        <p><strong>Gender:</strong> <span id="popupGender"></span></p>
+        <p><strong>Profession:</strong> <span id="popupProfession"></span></p>
+        <p><strong>Email:</strong> <span id="popupEmail"></span></p>
+        <p><strong>Mobile Number:</strong> <span id="popupMobile"></span></p>
+        <button id="closePopup">Close</button>
+    </div>
+
+    <script>
+        document.getElementById('submitBtn').addEventListener('click', function () {
+            var firstName = document.getElementById('firstName').value;
+            var lastName = document.getElementById('lastName').value;
+            var dob = document.getElementById('dob').value;
+            var country = document.getElementById('country').value;
+            var gender = document.querySelectorAll('input[name="gender"]:checked');
+            var profession = document.getElementById('profession').value;
+            var email = document.getElementById('email').value;
+            var mobile = document.getElementById('mobile').value;
+
+            var selectedGenders = [];
+            for (var i = 0; i < gender.length; i++) {
+                selectedGenders.push(gender[i].value);
+            }
+
+            
+            document.getElementById('popupFirstName').textContent = firstName;
+            document.getElementById('popupLastName').textContent = lastName;
+            document.getElementById('popupDob').textContent = dob;
+            document.getElementById('popupCountry').textContent = country;
+            document.getElementById('popupGender').textContent = selectedGenders.join(', ');
+            document.getElementById('popupProfession').textContent = profession;
+            document.getElementById('popupEmail').textContent = email;
+            document.getElementById('popupMobile').textContent = mobile;
+
+       
+            document.getElementById('popup').style.display = 'block';
+        });
+
+        document.getElementById('closePopup').addEventListener('click', function () {
+            document.getElementById('surveyForm').reset();
+            document.getElementById('popup').style.display = 'none';
+        });
+
+        document.getElementById('resetBtn').addEventListener('click', function () {
+              document.getElementById('surveyForm').reset();
+        });
+    </script>
+</body>
+</html>
